@@ -1,4 +1,4 @@
-package future
+package practice.future
 
 import java.util.concurrent.CompletableFuture
 

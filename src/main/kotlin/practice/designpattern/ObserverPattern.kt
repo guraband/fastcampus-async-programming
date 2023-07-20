@@ -1,4 +1,4 @@
-package designpattern
+package practice.designpattern
 
 import java.util.*
 
