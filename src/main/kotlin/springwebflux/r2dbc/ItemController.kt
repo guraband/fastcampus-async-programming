@@ -1,0 +1,28 @@
+package springwebflux.r2dbc
+
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
+import reactor.core.publisher.Mono
+
+@RestController("/items")
+class ItemController(
+    val itemRepository: ItemRepository,
+) {
+    @GetMapping("{name}")
+    fun getByName(@PathVariable name: String): Mono<Item> {
+        return itemRepository.findByName(name)
+    }
+
+    @PostMapping
+    fun create(@RequestBody map: Map<String, Any>): Mono<Item> {
+        val item = Item(
+            name = map["name"].toString(),
+            price = map["price"] as Int,
+        )
+
+        return itemRepository.save(item)
+    }
+}
